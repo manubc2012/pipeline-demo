@@ -14,4 +14,3 @@ function testGreeting() {
 }
 
 testGreeting();
-#test

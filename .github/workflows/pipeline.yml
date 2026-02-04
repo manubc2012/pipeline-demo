@@ -42,7 +42,7 @@ jobs:
         run: |
           echo "Starting deployment..."
           mkdir -p deploy
-          cp -r * deploy/
+          cp -r app.js test.js package.json deploy/
           echo "Application deployed successfully!"
           echo "Timestamp: $(date)"
           echo "Commit: $GITHUB_SHA"

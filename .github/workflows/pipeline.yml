@@ -1,0 +1,52 @@
+name: CI/CD Pipeline Demo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: success()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Simulate deployment
+        run: |
+          echo "Starting deployment..."
+          mkdir -p deploy
+          cp -r * deploy/
+          echo "Application deployed successfully!"
+          echo "Timestamp: $(date)"
+          echo "Commit: $GITHUB_SHA"
+
+      - name: Notify team (simulated)
+        run: |
+          echo "Deployment completed successfully"
